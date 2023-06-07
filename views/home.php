@@ -1,2 +1,5 @@
-<h1>Home</h1>
-<small>Welcome <?php echo "__" . $name ?></small>
+<h1>Welcome Home!</h1>
+
+<p>
+    <?php echo $name ?>
+</p>

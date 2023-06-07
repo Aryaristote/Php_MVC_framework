@@ -31,6 +31,12 @@ class Router {
         if(is_string($callback)){
             return $this->renderView($callback);
         }
+
+        # HACK
+        if (is_array($callback)) {
+            return call_user_func([new $callback[0], $callback[1]]);
+        }
+
         return call_user_func($callback);
     }
 
@@ -47,8 +53,7 @@ class Router {
         return ob_get_clean();
     }
     protected function renderOnlyView($view, $params){
-        
-        foreach($params as $key => $value){
+        foreach ($params as $key => $value) {
             $$key = $value;
         }
 
