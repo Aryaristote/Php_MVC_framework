@@ -9,6 +9,9 @@
 namespace App\core;
 
 class Application {
+
+    public static $app = null;
+
     public static string $ROOT_DIR;
     public Router $router;
     public Request $request;
@@ -17,7 +20,7 @@ class Application {
 
     public function __construct($rootPath){
         self::$ROOT_DIR = $rootPath;
-        // self::$app = $this;
+        self::$app = $this;
         // $this->response = new Response();
         $this->request = new Request();
         $this->router = new Router($this->request);
