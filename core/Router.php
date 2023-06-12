@@ -21,7 +21,7 @@ class Router {
 
     public function resolve(){
         $path = $this->request->getPath();
-        $method = $this->request->getMethod();
+        $method = $this->request->method();
         $callback =  $this->routes[$method][$path] ?? false;
 
         if($callback === false){
@@ -34,10 +34,10 @@ class Router {
 
         # HACK
         if (is_array($callback)) {
-            return call_user_func([new $callback[0], $callback[1]]);
+            return call_user_func([new $callback[0], $callback[1]], $this->request);
+            // $callback[0] = new $callback[0]();
         }
-
-        return call_user_func($callback);
+        return call_user_func($callback, $this->request);
     }
 
 

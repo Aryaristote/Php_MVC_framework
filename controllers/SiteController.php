@@ -3,21 +3,28 @@
 namespace App\controllers;
 
 use App\core\Application;
+use App\core\Controller;
+use App\core\Request;
 
 class SiteController extends Controller {
     public function home(){
         $params = [
             'name' => "Ary",
         ];
-        return Application::$app->router->renderView('home', $params);
+        return $this->render('home', $params);
     }
 
     public function contact(){
-        return Application::$app->router->renderView('contact');
+        return $this->render('contact');
     }
 
-    public function handleContact()
-    {
-        return "Handling the";
+    public function handleContact(Request $request){
+        $body = $request->getBody();
+
+        // echo "<pre>";
+        // var_dump($body);
+        // echo "</pre>";
+        // exit;
+        // return "Love om tn sun rise";
     }
 }
