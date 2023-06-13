@@ -1,10 +1,10 @@
 <?php
 
+require_once __DIR__ ."/../vendor/autoload.php";
+
 use App\controllers\AuthController;
 use App\controllers\SiteController;
 use App\core\Application;
-
-require_once __DIR__ ."/../vendor/autoload.php";
 
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
