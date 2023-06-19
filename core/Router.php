@@ -36,8 +36,10 @@ class Router {
         if (is_array($callback)) {
             return call_user_func([new $callback[0], $callback[1]], $this->request);
             // $callback[0] = new $callback[0]();
+            var_dump($this->response);
         }
-        return call_user_func($callback, $this->request);
+        return var_dump("Love in air");
+        // return call_user_func($callback, $this->request, $this->response);
     }
 
 

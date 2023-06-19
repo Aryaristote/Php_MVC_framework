@@ -2,34 +2,50 @@
 
 namespace App\controllers;
 
+use App\core\Application;
 use App\core\Request;
 use App\core\Controller;
-use App\models\RegisterModel;
+use App\core\Response;
+use App\models\LoginForm;
+use App\models\User;
 
 class AuthController extends Controller{
-    public function login(){
-        // Missing class for change layout on Log Pages ------------------
-        return $this->render('Login');
+    public function login(Request $request, Response $response){
+        $loginForm = new LoginForm();
+        if($request -> isPost()){
+            $loginForm->loadData($request->getBody());
+            if($loginForm->validate() && $loginForm->login()){
+                $response->redirect('/'); 
+                return;
+            }
+        }
+        // $this->setLayout('auth') Missing class for change layout on Log Pages ------------------
+        return $this->render('login', [
+            'model' => $loginForm,
+        ]);
     }
 
     public function register(Request $request){
         // if it post method return the appropriate method
         // Missing class for change layout on Log Pages ------------------
-        $RegisterModel = new RegisterModel();
+        $user = new User();
 
         if($request->isPost()){
-            $RegisterModel->loadData($request->getBody());
+            $user->loadData($request->getBody());
 
-            if($RegisterModel->validate() && $RegisterModel->register()){
-                return "success";
+            if($user->validate() && $user->save()){
+                Application::$app->session->setFlash('success', 
+                'Thanks for registering');
+                Application::$app->response->redirect('/');
+                exit;
             }
 
             return $this->render('register', [
-                'model' => $RegisterModel
+                'model' => $user
             ]);
         }
         return $this->render('register', [
-            'model' => $RegisterModel
+            'model' => $user
         ]);
     }
 }

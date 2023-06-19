@@ -1,5 +1,12 @@
+<?php 
+
+/** @var $model \App\models\User */
+
+?>
+
+
 <div>
-    <h1>Create new Account</h1><br><br>
+    <h1 class="text-center">Create new Account</h1><br><br>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6" style="background-color:#e3f2fd; padding: 20px">
