@@ -6,7 +6,6 @@ abstract class DbModel extends Model {
     abstract public function tableName(): string;
     abstract public function attributes(): array;
 
-
     public function save(){
         $tableName = $this->tableName();
         $attributes = $this->attributes();
@@ -22,8 +21,10 @@ abstract class DbModel extends Model {
             return true;
     }
 
-    public function findOne($where){ //$where may store smthg like: useremail & username
-        $tableName = static::tableName();
+    public static function findOne($where){ 
+        $tableName = self::tableName();
+        // $dbModel = new DbModel();
+        // $tableName = $dbModel->tableName();
         $attributes = array_keys($where);
         $sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");

@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\models; 
+namespace App\models;
 
-use App\core\Model;
 use App\core\Application;
+use App\core\Model;
 
 class LoginForm extends Model{
     public string $email = '';
@@ -13,6 +13,13 @@ class LoginForm extends Model{
         return [
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'password' => [self::RULE_REQUIRED]
+        ];
+    }
+
+    public function label(): array{
+        return[
+            'email' => 'Your email',
+            'password' => 'Your Password',
         ];
     }
 
@@ -27,7 +34,9 @@ class LoginForm extends Model{
             return false;
         }
 
-        var_dump("love in air");
+        echo '<pre>';
+        var_dump($user);
+        echo '</pre>';
         exit;
 
         return Application::$app->login($user);
