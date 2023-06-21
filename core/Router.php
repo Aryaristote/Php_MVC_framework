@@ -35,7 +35,7 @@ class Router {
         # HACK
         if (is_array($callback)) {
             return call_user_func([new $callback[0], $callback[1]], $this->request, $this->response);
-            $callback[0] = new $callback[0]();
+            $callback[0] = new $callback[0](); 
         }
         return var_dump("Love in air");
         // return call_user_func($callback, $this->request, $this->response);

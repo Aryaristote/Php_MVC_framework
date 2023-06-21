@@ -12,15 +12,17 @@ class Application {
 
     public static $app = null;
 
+    public string $userClass;
     public static string $ROOT_DIR;
     public Router $router;
     public Request $request;
     public Response $response;
     public Session $session; 
     public Database $db; 
-    // public static Application $app; 
+    public ? DbModel $user; // ? is in case it's null 
 
     public function __construct($rootPath, array $config){
+        $this->userClass = $config['userClass'];
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
         // $this->response = new Response();
@@ -30,13 +32,28 @@ class Application {
         $this->router = new Router($this->request, $this->response);
 
         $this->db = new Database($config['db']);
+
+        $primaryValue = $this->session->get('user');
+        if($primaryValue){
+            $primaryKey = $this->userClass::primaryKey();
+            $this->user = $this->userClass::findOne([$primaryKey => $primaryValue]);
+        }
     }
 
     public function run(){
         echo $this->router->resolve();
     }
 
-    public function __destruct(){
-        
+    public function login(DbModel $user){
+        $this->user = $user;
+        $primaryKey = $user->primaryKey(); 
+        $primaryValue = $user->{$primaryKey};
+        $this->session->set('user', $primaryValue);
+        return true;
+    }
+
+    public function logout(){
+        $this->user = null;
+        $this->session->remove('user');
     }
 }

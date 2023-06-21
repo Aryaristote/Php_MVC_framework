@@ -16,10 +16,10 @@ class LoginForm extends Model{
         ];
     }
 
-    public function label(): array{
+    public function labels(): array{
         return[
             'email' => 'Your email',
-            'password' => 'Your Password',
+            'password' => 'Password',
         ];
     }
 
@@ -33,11 +33,6 @@ class LoginForm extends Model{
             $this->addError('password', 'Password incorrect...');
             return false;
         }
-
-        echo '<pre>';
-        var_dump($user);
-        echo '</pre>';
-        exit;
 
         return Application::$app->login($user);
     }

@@ -14,7 +14,7 @@
                 <?php echo $form->field($model, 'password')->passwordField() ?>
                 <div class="row" style="padding: 0 18px;">
                     <button type="submit" class="btn btn-primary" style="margin-right: 18px;">Submit</button>
-                    <a href="/login">Login</a>
+                    <a href="/login">Sign Up</a>
                 </div>
             <?php \App\core\form\form::end() ?>
         </div>

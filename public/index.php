@@ -11,6 +11,7 @@ $dotenv->load();
 
 
 $config = [
+    'userClass' => \App\models\User::class,
     'db' => [
         'dsn' => $_ENV['DB_DSN'],
         'user' => $_ENV['DB_USER'],
