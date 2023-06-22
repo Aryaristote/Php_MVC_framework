@@ -1,9 +1,5 @@
 <?php 
   use App\core\Application;
-
-  echo '<pre>';
-  // var_dump(Application::$app->user);
-  echo '</pre>';
 ?>
 
 <!doctype html>
@@ -12,10 +8,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" src="../../public/style.css">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Home | MVC</title>
   </head>
   <body>
@@ -33,14 +30,31 @@
                   <a class="nav-link" href="/contact">Contact</a>
               </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                  <a class="nav-link" href="/login">Login</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/register">Register<span class="sr-only">(current)</span></a>
-              </li>
-            </ul>
+            <?php if(Application::isGuest()): ?>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register<span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+            <?php else: ?>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item" style="margin-right: 10px">
+                  <a class="btn btn-primary" href="/profile">
+                    <?php echo Application::$app->user->getDisplayName() ?>
+                  </a>
+                </li>
+                <li class="nav-item" style="margin-top: 7px;">
+                  <a style="border: 3px solid #3B71CA;color: #3B71CA;background-color: transparent;
+                  padding: 5px 10px;border-radius: 4px"
+                  href="/logout">
+                    Logout
+                  </a>
+                </li> 
+              </ul>
+            <?php endif; ?>
         </div>
     </nav><br><br>
     <div class="container">

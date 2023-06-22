@@ -4,10 +4,22 @@
 namespace App\core;
 
 class Controller{
-    
-    // Missing class for change layout on Log Pages ------------------
+    public string $layout = 'main';
+
+    /**
+     * @var \App\core\middlewares\BaseMiddleware
+     */
+    public array $middlewares = [];
+
+    public function setLayout($layout){
+        $this->layout = $layout;
+    }
 
     public function render($view, $params = []){
         return Application::$app->router->renderView($view, $params);
+    }
+
+    public function registerMiddleware(){
+        return null;
     }
 }

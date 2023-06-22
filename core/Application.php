@@ -12,6 +12,7 @@ class Application {
 
     public static $app = null;
 
+    public string $layout = 'main';
     public string $userClass;
     public static string $ROOT_DIR;
     public Router $router;
@@ -20,6 +21,8 @@ class Application {
     public Session $session; 
     public Database $db; 
     public ? DbModel $user; // ? is in case it's null 
+
+    public ?Controller $controller = null;
 
     public function __construct($rootPath, array $config){
         $this->userClass = $config['userClass'];
@@ -37,7 +40,13 @@ class Application {
         if($primaryValue){
             $primaryKey = $this->userClass::primaryKey();
             $this->user = $this->userClass::findOne([$primaryKey => $primaryValue]);
+        }else{
+            $this->user = null;
         }
+    }
+
+    public static function isGuest(){
+        return !self::$app->user;
     }
 
     public function run(){
