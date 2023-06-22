@@ -2,6 +2,8 @@
 
 namespace App\core;
 
+use App\core\exception\NotFoundException;
+
 class Router {
     public Request $request;
     public Response $response;
@@ -26,7 +28,8 @@ class Router {
 
         if($callback === false){
             $this->response->setStatusCode(404);
-            return $this->renderView("404");
+            // return $this->renderView("404");
+            throw new NotFoundException();
         }
         if(is_string($callback)){
             return $this->renderView($callback);
@@ -34,11 +37,22 @@ class Router {
 
         # HACK
         if (is_array($callback)) {
-            return call_user_func([new $callback[0], $callback[1]], $this->request, $this->response);
-            $callback[0] = new $callback[0](); 
+            /** @var \App\core\Controller $controller */
+            $controller = new $callback[0]();
+            Application::$app->controller = $controller;
+            $controller->action = $callback[1];
+            $callback[0] = $controller;
+
+            // return call_user_func([new $callback[0], $callback[1]], $this->request, $this->response);
+            // Application::$app->controller->action = $callback[1];
+            // $callback[0] = new $callback[0](); 
+
+            foreach($controller->getMiddlewares() as $middleware){
+                $middleware->execute();
+            }
         }
-        return var_dump("Love in air");
-        // return call_user_func($callback, $this->request, $this->response);
+        // return var_dump("Love in air");
+        return call_user_func($callback, $this->request, $this->response);
     }
 
 

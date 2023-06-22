@@ -2,12 +2,13 @@
 
 namespace App\controllers;
 
-use App\core\Application;
-use App\core\Request;
-use App\core\Controller;
-use App\core\Response;
-use App\models\LoginForm;
 use App\models\User;
+use App\core\Request;
+use App\core\Response;
+use App\core\Controller;
+use App\core\Application;
+use App\models\LoginForm;
+use App\core\middlewares\AuthMiddleware;
 
 class AuthController extends Controller{
     public function __construct(){
