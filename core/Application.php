@@ -76,6 +76,6 @@ class Application {
 
     public function logout(){
         $this->user = null;
-        $this->session->remove('user');
+        $this->session->remove('user'); 
     }
 }
