@@ -1,6 +1,7 @@
 <?php 
 
 /** @var $model \App\models\User */
+    $this->title = 'Login';
 
 ?>
 

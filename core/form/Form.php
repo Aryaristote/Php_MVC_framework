@@ -3,7 +3,7 @@
 namespace App\core\form;
 
 use App\core\Model;
-use App\core\form\Field;
+use App\core\form\InputField;
 
 class Form{
     public static function begin($action, $method){
@@ -16,6 +16,6 @@ class Form{
     }
 
     public function field(Model $model, $attribute){
-        return new Field($model, $attribute);
+        return new InputField($model, $attribute);
     }
 }

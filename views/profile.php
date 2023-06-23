@@ -1,3 +1,11 @@
+<?php 
+
+/** @var $this \App\core\view */
+$this->title = 'Profile';
+
+?>
+
+
 <div>
     <div class="">
         <div class="row">
