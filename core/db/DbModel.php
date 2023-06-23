@@ -1,6 +1,9 @@
 <?php 
 
-namespace App\core;
+namespace App\core\db;
+
+use App\core\Model;
+use App\core\Application;
 
 abstract class DbModel extends Model {
     abstract public static function tableName(): string;

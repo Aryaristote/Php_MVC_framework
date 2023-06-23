@@ -9,6 +9,8 @@
 namespace App\core;
 
 use App\core\view\View;
+use App\core\db\DbModel;
+use App\core\db\Database;
 
 class Application {
 
@@ -22,7 +24,7 @@ class Application {
     public Response $response;
     public Session $session; 
     public Database $db; 
-    public ? DbModel $user; // ? is in case it's null
+    public ? UserModel $user; // ? is in case it's null
     public View $view;
 
     public ?Controller $controller = null;
@@ -64,7 +66,7 @@ class Application {
         }
     }
 
-    public function login(DbModel $user){
+    public function login(UserModel $user){
         $this->user = $user;
         $primaryKey = $user->primaryKey(); 
         $primaryValue = $user->{$primaryKey};
