@@ -1,8 +1,8 @@
 {
-    "name": "aryar/mvc_tuto",
+    "name": "ary/php-mvc-core",
     "autoload": {
         "psr-4": {
-            "App\\": "./"
+            "Ary\\PhpMvcCore\\": "src/"
         }
     },
     "authors": [
@@ -11,7 +11,5 @@
             "email": "aryaristote@gmail.com"
         }
     ],
-    "require": {
-        "vlucas/phpdotenv": "^5.5"
-    }
+    "require": {}
 }
