@@ -8,6 +8,8 @@
 */
 namespace App\core;
 
+use App\core\view\View;
+
 class Application {
 
     public static $app = null;
@@ -20,7 +22,8 @@ class Application {
     public Response $response;
     public Session $session; 
     public Database $db; 
-    public ? DbModel $user; // ? is in case it's null 
+    public ? DbModel $user; // ? is in case it's null
+    public View $view;
 
     public ?Controller $controller = null;
 
@@ -33,6 +36,7 @@ class Application {
         $this->response = new Response();
         $this->session = new Session();
         $this->router = new Router($this->request, $this->response);
+        $this->view = new View();
 
         $this->db = new Database($config['db']);
 
@@ -54,7 +58,7 @@ class Application {
             echo $this->router->resolve();
         }catch(\Exception $e){
             $this->response->setStatusCode($e->getCode());
-            echo $this->router->renderView('_error', [
+            echo $this->view->renderView('_error', [
                 'exception' => $e,
             ]);
         }
